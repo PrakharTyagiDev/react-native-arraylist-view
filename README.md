@@ -20,58 +20,7 @@ npm i react-native-arraylist-view --save
 ```js
 import ViewList from 'react-native-arraylist-view';
 
-<ViewList
-  arrayData={[]}
-  rowStyle={styles.rowStyle}
-  rowLabelStyle={styles.rowLabelStyle}
-  rowValueStyle={styles.rowValueStyle}
-  containerStyle={styles.containerStyle}
-  isDeleted={true}
-  onSelectDelete={(item, index) => {
-    console.log(item, index);
-  }}
-  isEdited={false}
-  onSelectEdit={(item, index) => {
-    console.log(item, index);
-  }}
-/>;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  containerStyle: {
-    marginHorizontal: '2%',
-    borderRadius: 0,
-    marginVertical: '2%',
-    backgroundColor: '#fff',
-    borderColor: '#000',
-    borderWidth: 3,
-  },
-  rowStyle: {
-    width: '100%',
-  },
-  rowLabelStyle: {
-    width: '35%',
-    fontSize: 13,
-    borderColor: '#000',
-    color: '#000',
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    borderRightWidth: 1,
-    fontWeight: '600',
-    textTransform: 'capitalize',
-  },
-  rowValueStyle: {
-    width: '65%',
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    color: '#000',
-    borderColor: '#000',
-    fontSize: 13,
-    textTransform: 'capitalize',
-  },
-});
+<ViewList arrayData={[]} />;
 ```
 
 ## Sample Data
