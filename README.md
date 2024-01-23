@@ -1,11 +1,11 @@
 # react-native-arraylist-view
 
-## TOC
+## Table of contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Properties](#properties)
 - [Sample Data](#sample-data)
+- [Properties](#properties)
 - [Contributing](#contributing)
 - [LICENSE](#license)
 
@@ -125,17 +125,24 @@ const styles = StyleSheet.create({
 
 ## Properties
 
+### ListView
+
 | Prop           | Default | Type     | Description                                          | Required/Optional |
 | -------------- | ------- | -------- | ---------------------------------------------------- | ----------------- |
-| arrayData      | []      | array    | Array of objects                                     | Required          |
-| rowStyle       | -       | object   | Customize row style                                  | Optional          |
-| rowLabelStyle  | -       | object   | Customize row title style                            | Optional          |
-| rowValueStyle  | -       | object   | Customize row value style                            | Optional          |
-| containerStyle | -       | object   | Customize container style                            | Optional          |
-| isEdited       | false   | boolean  | Customize container style                            | Optional          |
-| onSelectEdit   | -       | function | Callback function received value from list selection | Optional          |
-| isDeleted      | false   | boolean  | Customize container style                            | Optional          |
-| onSelectDelete | -       | function | Callback function received value from list selection | Optional          |
+| **arrayData**  | []      | Array    | Array of objects                                     | **Required**      |
+| isEdited       | false   | Boolean  | Show and hide edit button                            | Optional          |
+| onSelectEdit   | -       | Function | Callback function received value from list selection | Optional          |
+| isDeleted      | false   | Boolean  | Show and hide delete button                          | Optional          |
+| onSelectDelete | -       | Function | Callback function received value from list selection | Optional          |
+
+### Style Props
+
+| Prop               | Description               | Type   |
+| ------------------ | ------------------------- | ------ |
+| **rowStyle**       | Customize row style       | Object |
+| **rowLabelStyle**  | Customize row title style | Object |
+| **rowValueStyle**  | Customize row value style | Object |
+| **containerStyle** | Customize container style | Object |
 
 ## Contributing
 
