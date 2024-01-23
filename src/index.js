@@ -18,10 +18,10 @@ const SCREEN_HEIGHT = SCREEN.height;
 
 const ViewList = ({
   arrayData,
-  titleLabelStyle,
-  titleValueStyle,
   containerStyle,
   rowStyle,
+  rowLabelStyle,
+  rowValueStyle,
   isEdited,
   isDeleted,
   onSelectDelete,
@@ -37,7 +37,7 @@ const ViewList = ({
       <View style={[styles.itemContainer, containerStyle]}>
         {object.map((a, i) => {
           return (
-            <View style={[styles.title, rowStyle]}>
+            <View style={[styles.rowStyle, rowStyle]}>
               {object[i].toUpperCase() === 'IMAGE' ? (
                 <>
                   {item[object[i]].length > 0 && (
@@ -54,8 +54,8 @@ const ViewList = ({
                 >
                   <Text
                     style={[
-                      styles.titlelabel,
-                      titleLabelStyle,
+                      styles.rowLabelStyle,
+                      rowLabelStyle,
                       { borderBottomWidth: i === len - 1 ? 0 : 1 },
                     ]}
                   >
@@ -63,8 +63,8 @@ const ViewList = ({
                   </Text>
                   <Text
                     style={[
-                      styles.titledata,
-                      titleValueStyle,
+                      styles.rowValueStyle,
+                      rowValueStyle,
                       { borderBottomWidth: i === len - 1 ? 0 : 1 },
                     ]}
                   >
@@ -76,7 +76,7 @@ const ViewList = ({
           );
         })}
         {isEdited || isDeleted ? (
-          <View style={[styles.title, { borderTopWidth: 1 }, rowStyle]}>
+          <View style={[styles.rowStyle, { borderTopWidth: 1 }, rowStyle]}>
             <View
               style={{
                 width: '100%',
@@ -155,8 +155,8 @@ const ViewList = ({
             >
               <Text
                 style={[
-                  styles.titlelabel,
-                  titleLabelStyle,
+                  styles.rowLabelStyle,
+                  rowLabelStyle,
                   { borderBottomWidth: i === len - 1 ? 0 : 1 },
                 ]}
               >
@@ -165,8 +165,8 @@ const ViewList = ({
 
               <Text
                 style={[
-                  styles.titledata,
-                  titleValueStyle,
+                  styles.rowValueStyle,
+                  rowValueStyle,
                   {
                     borderBottomWidth: i === len - 1 ? 0 : 1,
                   },
@@ -253,10 +253,10 @@ const ViewList = ({
 };
 
 const styles = StyleSheet.create({
-  title: {
+  rowStyle: {
     width: '100%',
   },
-  titlelabel: {
+  rowLabelStyle: {
     width: '35%',
     fontSize: 13,
     borderColor: '#000',
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     borderWidth: 3,
   },
-  titledata: {
+  rowValueStyle: {
     width: '65%',
     paddingHorizontal: 5,
     paddingVertical: 3,
@@ -315,12 +315,6 @@ const styles = StyleSheet.create({
     marginVertical: 3,
     alignSelf: 'center',
     elevation: 1,
-  },
-  loading: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT * 0.8,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 

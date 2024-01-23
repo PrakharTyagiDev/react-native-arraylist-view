@@ -1,7 +1,7 @@
 {
   "name": "react-native-arraylist-view",
-  "version": "0.1.0",
-  "description": "Test",
+  "version": "0.1.1",
+  "description": "Array list view for react-native.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -35,8 +35,12 @@
     "release": "release-it"
   },
   "keywords": [
+    "array",
+    "listview",
+    "list",
+    "flatlist",
+    "arrayview",
     "react-native",
-    "ios",
     "android"
   ],
   "repository": {
@@ -161,6 +165,7 @@
     ]
   },
   "directories": {
-    "example": "example"
+    "example": "example",
+    "lib": "lib"
   }
 }

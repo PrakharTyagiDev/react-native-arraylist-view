@@ -8,52 +8,60 @@ const App = () => {
       <ViewList
         arrayData={[
           {
-            name: 'mahesh',
-            password: 'password1',
-            profession: 'teacher',
-            id: 1,
+            name: "rakesh",
+            password: "password1",
+            profession: "layer",
+            address: "address1",
             image: [
               {
-                'before Image':
-                  'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
-                'after Image':
-                  'https://pixabay.com/images/download/people-2944065_640.jpg',
+                "before Image":
+                  "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
+                "after Image":
+                  "https://pixabay.com/images/download/people-2944065_640.jpg",
               },
             ],
           },
           {
-            name: 'suresh',
-            password: 'password2',
-            profession: 'librarian',
-            id: 2,
+            name: "jagesh",
+            password: "password2",
+            profession: "doctor",
+            address: "address2",
             image: [
               {
-                'before Image':
-                  'https://pixabay.com/images/download/people-2944065_640.jpg',
-                'after Image':
-                  'https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp',
+                "before Image":
+                  "https://pixabay.com/images/download/people-2944065_640.jpg",
+                "after Image":
+                  "https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp",
               },
             ],
           },
           {
-            name: 'ramesh',
-            password: 'password3',
-            profession: 'clerk',
-            id: 3,
+            name: "yogesh",
+            password: "password3",
+            profession: "teacher",
+            address: "address2",
             image: [
               {
-                'before Image':
-                  'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
-                'after Image':
-                  'https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp',
+                "before Image":
+                  "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
+                "after Image":
+                  "https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp",
               },
             ],
           },
         ]}
-        rowStyle={styles.rowStyle}
-        titleLabelStyle={styles.titleLabelStyle}
-        titleValueStyle={styles.titleValueStyle}
         containerStyle={styles.containerStyle}
+        rowStyle={styles.rowStyle}
+        titleLabelStyle={styles.rowLabelStyle}
+        titleValueStyle={styles.rowValueStyle}
+        isDeleted={true}
+        onSelectDelete={(item, index) => {
+          console.log(item, index)
+        }}
+        isEdited={true}
+        onSelectEdit={(item, index) => {
+          console.log(item, index)
+        }}
       />
     </View>
   );
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
   rowStyle: {
     width: '100%',
   },
-  titleLabelStyle: {
+  rowLabelStyle: {
     width: '35%',
     fontSize: 13,
     borderColor: '#000',
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textTransform: 'capitalize',
   },
-  titleValueStyle: {
+  rowValueStyle: {
     width: '65%',
     paddingHorizontal: 5,
     paddingVertical: 3,
