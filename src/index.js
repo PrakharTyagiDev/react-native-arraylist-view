@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '2%',
     borderRadius: 0,
     marginVertical: '2%',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     borderColor: '#000',
     borderWidth: 3,
   },

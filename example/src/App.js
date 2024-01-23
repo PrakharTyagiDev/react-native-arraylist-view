@@ -52,8 +52,8 @@ const App = () => {
         ]}
         containerStyle={styles.containerStyle}
         rowStyle={styles.rowStyle}
-        titleLabelStyle={styles.rowLabelStyle}
-        titleValueStyle={styles.rowValueStyle}
+        rowLabelStyle={styles.rowLabelStyle}
+        rowValueStyle={styles.rowValueStyle}
         isDeleted={true}
         onSelectDelete={(item, index) => {
           console.log(item, index)
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '2%',
     borderRadius: 0,
     marginVertical: '2%',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     borderColor: '#000',
     borderWidth: 3,
   },

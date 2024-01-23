@@ -26,7 +26,52 @@ import ViewList from 'react-native-arraylist-view';
   rowLabelStyle={styles.rowLabelStyle}
   rowValueStyle={styles.rowValueStyle}
   containerStyle={styles.containerStyle}
+  isDeleted={true}
+  onSelectDelete={(item, index) => {
+    console.log(item, index);
+  }}
+  isEdited={false}
+  onSelectEdit={(item, index) => {
+    console.log(item, index);
+  }}
 />;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  containerStyle: {
+    marginHorizontal: '2%',
+    borderRadius: 0,
+    marginVertical: '2%',
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    borderWidth: 3,
+  },
+  rowStyle: {
+    width: '100%',
+  },
+  rowLabelStyle: {
+    width: '35%',
+    fontSize: 13,
+    borderColor: '#000',
+    color: '#000',
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRightWidth: 1,
+    fontWeight: '600',
+    textTransform: 'capitalize',
+  },
+  rowValueStyle: {
+    width: '65%',
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    color: '#000',
+    borderColor: '#000',
+    fontSize: 13,
+    textTransform: 'capitalize',
+  },
+});
 ```
 
 ## Sample Data
@@ -80,17 +125,17 @@ import ViewList from 'react-native-arraylist-view';
 
 ## Properties
 
-| Prop            | Default | Type     | Description                                          | Required/Optional |
-| --------------- | ------- | -------- | ---------------------------------------------------- | ----------------- |
-| arrayData       | []      | array    | Array of objects                                     | Required          |
-| rowStyle        | -       | object   | Customize row style                                  | Optional          |
-| titleLabelStyle | -       | object   | Customize item title text style                      | Optional          |
-| titleValueStyle | -       | object   | Customize item value text style                      | Optional          |
-| containerStyle  | -       | object   | Customize container style                            | Optional          |
-| isEdited        | false   | boolean  | Customize container style                            | Optional          |
-| onSelectEdit    | -       | function | Callback function received value from list selection | Optional          |
-| isDeleted       | false   | boolean  | Customize container style                            | Optional          |
-| onSelectDelete  | -       | function | Callback function received value from list selection | Optional          |
+| Prop           | Default | Type     | Description                                          | Required/Optional |
+| -------------- | ------- | -------- | ---------------------------------------------------- | ----------------- |
+| arrayData      | []      | array    | Array of objects                                     | Required          |
+| rowStyle       | -       | object   | Customize row style                                  | Optional          |
+| rowLabelStyle  | -       | object   | Customize row title style                            | Optional          |
+| rowValueStyle  | -       | object   | Customize row value style                            | Optional          |
+| containerStyle | -       | object   | Customize container style                            | Optional          |
+| isEdited       | false   | boolean  | Customize container style                            | Optional          |
+| onSelectEdit   | -       | function | Callback function received value from list selection | Optional          |
+| isDeleted      | false   | boolean  | Customize container style                            | Optional          |
+| onSelectDelete | -       | function | Callback function received value from list selection | Optional          |
 
 ## Contributing
 
