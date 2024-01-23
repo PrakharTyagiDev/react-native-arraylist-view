@@ -1,22 +1,91 @@
 # react-native-arraylist-view
 
-Test
+- [Installation](#installation)
+- [Usage](#usage)
+- [Properties](#properties)
+- [Sample Data](#sample-data)
+- [Contributing](#contributing)
+- [LICENSE](#license)
 
-## Installation
+### Installation
 
-```sh
-npm install react-native-arraylist-view
+```shell
+npm i react-native-arraylist-view --save
 ```
 
-## Usage
+#### Usage
 
 ```js
-import { multiply } from 'react-native-arraylist-view';
+import ViewList from "react-native-arraylist-view";
 
-// ...
-
-const result = await multiply(3, 7);
+<ViewList
+  arrayData={[]}
+  rowStyle={styles.rowStyle}
+  titleLabelStyle={styles.titleLabelStyle}
+  titleValueStyle={styles.titleValueStyle}
+  containerStyle={styles.containerStyle}
+/>;
 ```
+
+
+#### Sample Data
+
+```js
+[
+  {
+    name: "rakesh",
+    password: "password1",
+    profession: "layer",
+    address: "address1",
+    image: [
+      {
+        "before Image":
+          "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
+        "after Image":
+          "https://pixabay.com/images/download/people-2944065_640.jpg",
+      },
+    ],
+  },
+  {
+    name: "jagesh",
+    password: "password2",
+    profession: "doctor",
+    address: "address2",
+    image: [
+      {
+        "before Image":
+          "https://pixabay.com/images/download/people-2944065_640.jpg",
+        "after Image":
+          "https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp",
+      },
+    ],
+  },
+  {
+    name: "yogesh",
+    password: "password3",
+    profession: "teacher",
+    address: "address2",
+    image: [
+      {
+        "before Image":
+          "https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg",
+        "after Image":
+          "https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp",
+      },
+    ],
+  },
+];
+```
+## Properties
+
+| Prop            | Default | Type   | Description                     | Required/Optional |
+| --------------- | ------- | ------ | ------------------------------- | ----------------- |
+| arrayData       | []      | array  | Array of objects                | Required          |
+| rowStyle        | -       | object | Customize row style             | Optional          |
+| titleLabelStyle | -       | object | Customize item title text style | Optional          |
+| titleValueStyle | -       | object | Customize item value text style | Optional          |
+| containerStyle  | -       | object | Customize container style       | Optional          |
+
 
 ## Contributing
 
@@ -27,5 +96,3 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 MIT
 
 ---
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
