@@ -1,5 +1,11 @@
 # react-native-arraylist-view
 
+
+[![npm version](https://badge.fury.io/js/react-native-arraylist-view.svg)](http://badge.fury.io/js/react-native-arraylist-view)
+[![npm total downloads](https://img.shields.io/npm/dt/react-native-arraylist-view.svg)](https://img.shields.io/npm/dt/react-native-arraylist-view.svg)
+[![npm weekly downloads](https://img.shields.io/npm/dw/react-native-arraylist-view.svg)](https://img.shields.io/npm/dw/react-native-arraylist-view.svg)
+[![licence MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ## Table of contents
 
 - [Installation](#installation)
