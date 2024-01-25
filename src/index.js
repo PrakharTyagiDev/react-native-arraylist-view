@@ -26,6 +26,8 @@ const ViewList = ({
   isDeleted,
   onSelectDelete,
   onSelectEdit,
+  editImage,
+  deleteImage
 }) => {
   const [visible, setIsVisible] = useState(false);
   const [image, setImage] = useState('');
@@ -92,13 +94,20 @@ const ViewList = ({
                   }}
                 >
                   <View style={styles.iconStyle}>
-                    <Image
-                      source={require('./assets/edit.png')}
-                      height={'100%'}
-                      width={'100%'}
-                      tintColor={'grey'}
-                      style={{ height: 25, width: 25 }}
-                    />
+                    {editImage ||
+                      <Image
+                        source={require('./assets/edit.png')}
+                        height={'100%'}
+                        width={'100%'}
+                        tintColor={'grey'}
+                        style={{
+                          alignSelf: 'center',
+                          marginVertical: 5,
+                          height: 25,
+                          width: 25
+                        }}
+                      />
+                    }
                   </View>
                 </TouchableOpacity>
               )}
@@ -110,18 +119,20 @@ const ViewList = ({
                   }}
                 >
                   <View style={styles.iconStyle}>
-                    <Image
-                      source={require('./assets/delete.png')}
-                      height={'100%'}
-                      width={'100%'}
-                      tintColor={'grey'}
-                      style={{
-                        alignSelf: 'center',
-                        marginVertical: 3,
-                        height: 31,
-                        width: 31,
-                      }}
-                    />
+                    {deleteImage ||
+                      <Image
+                        source={require('./assets/delete.png')}
+                        height={'100%'}
+                        width={'100%'}
+                        tintColor={'grey'}
+                        style={{
+                          alignSelf: 'center',
+                          marginVertical: 5,
+                          height: 25,
+                          width: 25
+                        }}
+                      />
+                    }
                   </View>
                 </TouchableOpacity>
               )}

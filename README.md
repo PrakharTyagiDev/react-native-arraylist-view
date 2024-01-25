@@ -1,9 +1,7 @@
 # react-native-arraylist-view
 
-
 [![npm version](https://badge.fury.io/js/react-native-arraylist-view.svg)](http://badge.fury.io/js/react-native-arraylist-view)
 [![npm total downloads](https://img.shields.io/npm/dt/react-native-arraylist-view.svg)](https://img.shields.io/npm/dt/react-native-arraylist-view.svg)
-[![npm weekly downloads](https://img.shields.io/npm/dw/react-native-arraylist-view.svg)](https://img.shields.io/npm/dw/react-native-arraylist-view.svg)
 [![licence MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Table of contents
@@ -89,6 +87,8 @@ import ViewList from 'react-native-arraylist-view';
 | onSelectEdit   | -       | Function | Callback function received value from list selection | Optional          |
 | isDeleted      | false   | Boolean  | Show and hide delete button                          | Optional          |
 | onSelectDelete | -       | Function | Callback function received value from list selection | Optional          |
+| deleteImage    | -       | -        | Delete Image                                         | -                 |
+| editImage      | -       | -        | Edit Image                                           | -                 |
 
 ### Style Props
 
