@@ -86,12 +86,6 @@ const App = () => {
     <View style={{ flex: 1, padding: 10 }}>
       <ArrayListView
         arrayData={data}
-        renderItem={({ item }) => (
-          <View style={styles.row}>
-            <Text style={styles.rowLabel}>{item.name}</Text>
-            <Text style={styles.rowValue}>Age: {item.age}</Text>
-          </View>
-        )}
         isEdited={true}
         isDeleted={true}
         onSelectEdit={(item) => console.log('Edit clicked on:', item)}
