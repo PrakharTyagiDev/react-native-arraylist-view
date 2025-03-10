@@ -1,7 +1,7 @@
 {
   "name": "react-native-arraylist-view",
-  "version": "0.1.4",
-  "description": "Array list view for react-native.",
+  "version": "0.1.5",
+  "description": "This library is a simple and efficient library for rendering arrays of data in a scrollable list view in React Native. This library takes an array of data and automatically generates a list view, making it an ideal solution for displaying dynamic content such as contact lists, to-do items, and product catalogs.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -26,7 +26,6 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-arraylist-view-example",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -85,7 +84,6 @@
     "react-native": "*"
   },
   "workspaces": [
-    "example"
   ],
   "packageManager": "yarn@3.6.1",
   "engines": {
@@ -94,7 +92,6 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
   },
@@ -165,7 +162,6 @@
     ]
   },
   "directories": {
-    "example": "example",
     "lib": "lib"
   }
 }

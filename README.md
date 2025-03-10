@@ -2,40 +2,134 @@
 
 [![npm version](https://badge.fury.io/js/react-native-arraylist-view.svg)](http://badge.fury.io/js/react-native-arraylist-view)
 [![npm total downloads](https://img.shields.io/npm/dt/react-native-arraylist-view.svg)](https://img.shields.io/npm/dt/react-native-arraylist-view.svg)
-[![licence MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
+[![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## Table of contents
-
+## Table of Contents
+- [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Sample Data](#sample-data)
 - [Properties](#properties)
 - [Contributing](#contributing)
-- [LICENSE](#license)
+- [License](#license)
+
+## Description
+`react-native-arraylist-view` is a simple and efficient library for rendering arrays of data in a scrollable list view in React Native. This library takes an array of data and automatically generates a list view, making it an ideal solution for displaying dynamic content such as contact lists, to-do items, and product catalogs.
+
+The component is flexible and can be customized easily with props to modify how the list and its items are rendered, including optional edit and delete buttons for interaction. Whether you're building a small app or handling large datasets, this library is optimized for performance and ease of use.
 
 ## Installation
+Install the library using npm or yarn:
 
-```shell
-npm i react-native-arraylist-view --save
+```sh
+npm install react-native-arraylist-view --save
+```
+or
+```sh
+yarn add react-native-arraylist-view
 ```
 
 ## Usage
+To use react-native-arraylist-view, simply import the component and pass an array of data to it. You can also customize the appearance of each list item through the renderItem function and use additional props to control the display of edit and delete buttons.
 
-```js
-import ViewList from 'react-native-arraylist-view';
+# Example
+```sh
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import {ArrayListView} from 'react-native-arraylist-view';
 
-<ViewList arrayData={[]} />;
+// Sample data for rendering in the list
+const data = [
+  {
+    id: '1',
+    name: 'John Doe',
+    age: 30,
+    images: [
+      {
+        'before Image':
+          'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
+        'after Image':
+          'https://pixabay.com/images/download/people-2944065_640.jpg',
+      },
+    ],
+  },
+  {
+    id: '2',
+    name: 'Jane Smith',
+    age: 25,
+    images: [
+      {
+        'before Image':
+          'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
+        'after Image':
+          'https://pixabay.com/images/download/people-2944065_640.jpg',
+      },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Alice Johnson',
+    age: 35,
+    images: [
+      {
+        'before Image':
+          'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
+        'after Image':
+          'https://pixabay.com/images/download/people-2944065_640.jpg',
+      },
+    ],
+  },
+];
+
+const App = () => {
+  return (
+    <View style={{ flex: 1, padding: 10 }}>
+      <ArrayListView
+        arrayData={data}
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            <Text style={styles.rowLabel}>{item.name}</Text>
+            <Text style={styles.rowValue}>Age: {item.age}</Text>
+          </View>
+        )}
+        isEdited={true}
+        isDeleted={true}
+        onSelectEdit={(item) => console.log('Edit clicked on:', item)}
+        onSelectDelete={(item) => console.log('Delete clicked on:', item)}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  row: {
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+  },
+  rowLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  rowValue: {
+    fontSize: 14,
+    color: '#555',
+  },
+});
+
+export default App;
 ```
 
 ## Sample Data
-
-```js
-[
+This is an example of how your data should be structured. You can pass any array of objects with any shape to the component.
+```sh
+const data = [
   {
-    name: 'rakesh',
-    password: 'password1',
-    profession: 'layer',
-    address: 'address1',
+    id: '1',
+    name: 'John Doe',
+    age: 30,
     image: [
       {
         'before Image':
@@ -46,63 +140,78 @@ import ViewList from 'react-native-arraylist-view';
     ],
   },
   {
-    name: 'jagesh',
-    password: 'password2',
-    profession: 'doctor',
-    address: 'address2',
-    image: [
-      {
-        'before Image':
-          'https://pixabay.com/images/download/people-2944065_640.jpg',
-        'after Image':
-          'https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp',
-      },
-    ],
-  },
-  {
-    name: 'yogesh',
-    password: 'password3',
-    profession: 'teacher',
-    address: 'address2',
+    id: '2',
+    name: 'Jane Smith',
+    age: 25,
     image: [
       {
         'before Image':
           'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
         'after Image':
-          'https://www.yttags.com/blog/wp-content/uploads/2023/02/image-urls-for-testing.webp',
+          'https://pixabay.com/images/download/people-2944065_640.jpg',
+      },
+    ],
+  },
+  {
+    id: '3',
+    name: 'Alice Johnson',
+    age: 35,
+    image: [
+      {
+        'before Image':
+          'https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg',
+        'after Image':
+          'https://pixabay.com/images/download/people-2944065_640.jpg',
       },
     ],
   },
 ];
 ```
 
+
 ## Properties
-
 ### ListView
-
-| Prop           | Default | Type     | Description                                          | Required/Optional |
-| -------------- | ------- | -------- | ---------------------------------------------------- | ----------------- |
-| **arrayData**  | []      | Array    | Array of objects                                     | **Required**      |
-| isEdited       | false   | Boolean  | Show and hide edit button                            | Optional          |
-| onSelectEdit   | -       | Function | Callback function received value from list selection | Optional          |
-| isDeleted      | false   | Boolean  | Show and hide delete button                          | Optional          |
-| onSelectDelete | -       | Function | Callback function received value from list selection | Optional          |
-| deleteImage    | -       | -        | Delete Image                                         | -                 |
-| editImage      | -       | -        | Edit Image                                           | -                 |
+| Prop           | Default | Type      | Description                                                              | Required/Optional |
+| -------------- | ------- | --------- | ------------------------------------------------------------------------ | ----------------- |
+| arrayData      | []      | Array     | Array of objects to be displayed                                         | **Required**      |
+| hidden         | []      | Array     | Array of keys to be hidden from display                                  | Optional          |
+| borderColor    | #000000 | String    | Border color for styling                                                 | Optional          |
+| isEdited       | false   | Boolean   | Determines if the edit button is shown                                   | Optional          |
+| isDeleted      | false   | Boolean   | Determines if the delete button is shown                                 | Optional          |
+| onSelectEdit   | -       | Function  | Callback function triggered when an item is edited                       | Optional          |
+| onSelectDelete | -       | Function  | Callback function triggered when an item is deleted                      | Optional          |
+| deleteImage    | -       | -         | Delete button icon image source                                          | Optional          |
+| editImage      | -       | -         | Edit button icon image source                                            | Optional          |
+| listHeader     | -       | Component | Custom component to be displayed at the list header                      | Optional          |
+| itemSeperator  | -       | Component | Custom separator between list items                                      | Optional          |
+| listFooter     | -       | Component | Custom component to be displayed at the list footer                      | Optional          |
+| onEndReached   | -       | Component | Callback function triggered when reaching the end of the list            | Optional          |
+| endThreshold   | -       | Component | Defines how close to the end of the list before onEndReached is called   | Optional          |
+| refreshControl | -       | Component | Refresh control for pull-to-refresh functionality                        | Optional          |
 
 ### Style Props
-
-| Prop               | Description               | Type   |
-| ------------------ | ------------------------- | ------ |
-| **rowStyle**       | Customize row style       | Object |
-| **rowLabelStyle**  | Customize row title style | Object |
-| **rowValueStyle**  | Customize row value style | Object |
-| **containerStyle** | Customize container style | Object |
+| Prop                | Description                                         | Type   |
+| ------------------- | --------------------------------------------------- | ------ |
+| **itemCardStyle**   | Custom style for each item card                     | Object |
+| **containerStyle**  | Custom style for the container                      | Object |
+| **rowStyle**        | Custom style for each row                           | Object |
+| **rowLabelStyle**   | Custom style for row labels                         | Object |
+| **rowValueStyle**   | Custom style for row values                         | Object |
+| **iconButtonStyle** | Custom style for icon buttons                       | Object |
+| **iconImageStyle**  | Custom style for images inside icon buttons         | Object |
 
 ## Contributing
-
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
 ## License
-
 MIT
+##### Breakdown of Sections:
+1. **Description**: Explains the purpose and functionality of the library.
+2. **Installation**: Guides the user on how to install the library using npm or yarn.
+3. **Usage**: Provides an example of how to use the library with sample data and a basic app structure.
+4. **Sample Data**: Shows an example of how the data should be structured for the list view.
+5. **Properties**: Details the available properties and customization options for the component.
+6. **Contributing**: Links to a contributing guide (which you can create if you'd like others to contribute).
+7. **License**: Indicates that the project is licensed under the MIT License.
+
+This structure should be easy to follow for users and contributors. Let me know if you need any further adjustments!
