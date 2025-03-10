@@ -24,7 +24,9 @@ const ArrayListView = ({
   itemCardStyle,
   containerStyle,
   rowStyle,
+  rowLabelContainerStyle,
   rowLabelStyle,
+  rowValueContainerStyle,
   rowValueStyle,
   isEdited = false,
   isDeleted = false,
@@ -32,6 +34,7 @@ const ArrayListView = ({
   onSelectEdit,
   editImage = require('./assets/edit.png'),
   deleteImage = require('./assets/delete.png'),
+  showsVerticalScrollIndicator=false,
   listHeader,
   itemSeperator,
   listFooter,
@@ -80,30 +83,34 @@ const ArrayListView = ({
                       display: 'flex',
                     }}
                   >
-                    <Text
+                    <View
                       style={[
-                        styles.rowLabelStyle,
-                        rowLabelStyle,
+                        styles.rowLabelContainerStyle,
+                        rowLabelContainerStyle,
                         {
                           borderBottomWidth: i === len - 1 ? 0 : 1,
                           borderColor: borderColor,
                         },
                       ]}
                     >
-                      {object[i]}
-                    </Text>
-                    <Text
+                      <Text style={[styles.rowLabelStyle, rowLabelStyle]}>
+                        {object[i]}
+                      </Text>
+                    </View>
+                    <View
                       style={[
-                        styles.rowValueStyle,
-                        rowValueStyle,
+                        styles.rowValueContainerStyle,
+                        rowValueContainerStyle,
                         {
                           borderBottomWidth: i === len - 1 ? 0 : 1,
                           borderColor: borderColor,
                         },
                       ]}
                     >
-                      {item[object[i]]}
-                    </Text>
+                      <Text style={[styles.rowValueStyle, rowValueStyle]}>
+                        {item[object[i]]}
+                      </Text>
+                    </View>
                   </View>
                 )}
               </View>
@@ -232,7 +239,7 @@ const ArrayListView = ({
       }}
     >
       <FlatList
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
         data={filteredData}
         renderItem={renderViewData}
         keyExtractor={(item) => item.id}
@@ -320,21 +327,27 @@ const styles = StyleSheet.create({
   rowStyle: {
     width: '100%',
   },
-  rowLabelStyle: {
+
+  rowLabelContainerStyle: {
     width: '35%',
-    fontSize: 12,
-    color: '#000000',
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderRightWidth: 1,
-    fontWeight: '600',
-    textTransform: 'capitalize',
     backgroundColor: '#d9d8d7',
   },
-  rowValueStyle: {
+  rowLabelStyle: {
+    fontSize: 12,
+    color: '#000000',
+    fontWeight: '600',
+    textTransform: 'capitalize',
+  },
+
+  rowValueContainerStyle: {
     width: '65%',
     paddingHorizontal: 5,
     paddingVertical: 3,
+  },
+  rowValueStyle: {
     color: '#000000',
     fontSize: 13,
     textTransform: 'capitalize',

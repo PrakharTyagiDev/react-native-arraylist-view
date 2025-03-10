@@ -36,7 +36,7 @@ To use react-native-arraylist-view, simply import the component and pass an arra
 ```sh
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {ArrayListView} from 'react-native-arraylist-view';
+import ArrayListView from 'react-native-arraylist-view';
 
 // Sample data for rendering in the list
 const data = [
@@ -184,15 +184,17 @@ const data = [
 | refreshControl | -       | Component | Refresh control for pull-to-refresh functionality                        | Optional          |
 
 ### Style Props
-| Prop                | Description                                         | Type   |
-| ------------------- | --------------------------------------------------- | ------ |
-| **itemCardStyle**   | Custom style for each item card                     | Object |
-| **containerStyle**  | Custom style for the container                      | Object |
-| **rowStyle**        | Custom style for each row                           | Object |
-| **rowLabelStyle**   | Custom style for row labels                         | Object |
-| **rowValueStyle**   | Custom style for row values                         | Object |
-| **iconButtonStyle** | Custom style for icon buttons                       | Object |
-| **iconImageStyle**  | Custom style for images inside icon buttons         | Object |
+| Prop                        | Description                                         | Type   |
+| --------------------------- | --------------------------------------------------- | ------ |
+| **itemCardStyle**           | Custom style for each item card                     | Object |
+| **containerStyle**          | Custom style for the container                      | Object |
+| **rowStyle**                | Custom style for each row                           | Object |
+| **rowLabelContainerStyle**  | Custom style for row labels container               | Object |
+| **rowLabelStyle**           | Custom style for row labels                         | Object |
+| **rowValueContainerStyle**  | Custom style for row values container               | Object |
+| **rowValueStyle**           | Custom style for row values                         | Object |
+| **iconButtonStyle**         | Custom style for icon buttons                       | Object |
+| **iconImageStyle**          | Custom style for images inside icon buttons         | Object |
 
 ## Contributing
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
