@@ -116,7 +116,7 @@ const ArrayListView = ({
               </View>
             );
           })}
-          {isEdited || isDeleted ? (
+          {isEdited || isDeleted || item.isDeleted || item.isEdited ? (
             <View style={[styles.rowStyle, { borderTopWidth: 1 }, rowStyle]}>
               <View
                 style={{
@@ -125,7 +125,7 @@ const ArrayListView = ({
                   display: 'flex',
                 }}
               >
-                {isEdited && (
+                {(isEdited || item.isEdited) && (
                   <TouchableOpacity
                     style={{ width: '50%' }}
                     onPress={() => {
@@ -143,7 +143,7 @@ const ArrayListView = ({
                     </View>
                   </TouchableOpacity>
                 )}
-                {isDeleted && (
+                {(isDeleted || item.isDeleted) && (
                   <TouchableOpacity
                     style={{ alignSelf: 'center', width: '50%' }}
                     onPress={() => {

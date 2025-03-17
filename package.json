@@ -1,15 +1,18 @@
 {
   "name": "react-native-arraylist-view",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "This library is a simple and efficient library for rendering arrays of data in a scrollable list view in React Native. This library takes an array of data and automatically generates a list view, making it an ideal solution for displaying dynamic content such as contact lists, to-do items, and product catalogs.",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index",
+  "react-native": "src/index.js",
   "source": "src/index",
   "files": [
     "src",
     "lib",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
     "android",
     "ios",
     "cpp",
@@ -20,9 +23,6 @@
     "!android/gradlew",
     "!android/gradlew.bat",
     "!android/local.properties",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
     "!**/.*"
   ],
   "scripts": {
@@ -58,6 +58,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.5.0",
+    "@react-native-community/bob": "^0.17.1",
     "@react-native/eslint-config": "^0.72.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^28.1.2",
@@ -83,8 +84,7 @@
     "react": "*",
     "react-native": "*"
   },
-  "workspaces": [
-  ],
+  "workspaces": [],
   "packageManager": "yarn@3.6.1",
   "engines": {
     "node": ">= 18.0.0"
@@ -163,5 +163,13 @@
   },
   "directories": {
     "lib": "lib"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module"
+    ]
   }
 }
