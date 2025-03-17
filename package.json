@@ -1,6 +1,6 @@
 {
   "name": "react-native-arraylist-view",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "This library is a simple and efficient library for rendering arrays of data in a scrollable list view in React Native. This library takes an array of data and automatically generates a list view, making it an ideal solution for displaying dynamic content such as contact lists, to-do items, and product catalogs.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",

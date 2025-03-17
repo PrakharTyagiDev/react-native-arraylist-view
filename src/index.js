@@ -9,18 +9,18 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useState } from 'react';
-import { FlatList } from 'react-native';
-const SCREEN = Dimensions.get('window');
+} from "react-native";
+import React, { useState } from "react";
+import { FlatList } from "react-native";
+const SCREEN = Dimensions.get("window");
 
 const SCREEN_WIDTH = SCREEN.width;
 const SCREEN_HEIGHT = SCREEN.height;
 
 const ArrayListView = ({
   arrayData = [],
-  hidden = ['id'],
-  borderColor = '#000000',
+  hidden = ["id"],
+  borderColor = "#000000",
   itemCardStyle,
   containerStyle,
   rowStyle,
@@ -32,9 +32,9 @@ const ArrayListView = ({
   isDeleted = false,
   onSelectDelete,
   onSelectEdit,
-  editImage = require('./assets/edit.png'),
-  deleteImage = require('./assets/delete.png'),
-  showsVerticalScrollIndicator=false,
+  editImage = require("./assets/edit.png"),
+  deleteImage = require("./assets/delete.png"),
+  showsVerticalScrollIndicator = false,
   listHeader,
   itemSeperator,
   listFooter,
@@ -45,15 +45,8 @@ const ArrayListView = ({
   iconImageStyle,
 }) => {
   const [visible, setIsVisible] = useState(false);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
 
-  const filteredData = arrayData.map((item) => {
-    const newItem = { ...item };
-    hidden.forEach((key) => {
-      delete newItem[key];
-    });
-    return newItem;
-  });
   const renderViewData = ({ item, index }) => {
     var object = Object.keys(item);
     var len = Object.keys(item).length;
@@ -67,9 +60,17 @@ const ArrayListView = ({
           ]}
         >
           {object.map((a, i) => {
+            const currentKey = object[i].toUpperCase();
+            // Skip keys that are in the hidden array
+            if (hidden.map((key) => key.toUpperCase()).includes(currentKey))
+              return null;
+            // Skip 'ISDELETED' and 'ISEDITED' keys
+            if (currentKey === "ISDELETED" || currentKey === "ISEDITED")
+              return null;
+
             return (
               <View style={styles.rowStyle}>
-                {object[i].toUpperCase() === 'IMAGES' ? (
+                {object[i].toUpperCase() === "IMAGES" ? (
                   <>
                     {item[object[i]].length > 0 && (
                       <RenderImage data={item[object[i]]} />
@@ -78,9 +79,9 @@ const ArrayListView = ({
                 ) : (
                   <View
                     style={{
-                      width: '100%',
-                      flexDirection: 'row',
-                      display: 'flex',
+                      width: "100%",
+                      flexDirection: "row",
+                      display: "flex",
                     }}
                   >
                     <View
@@ -120,14 +121,14 @@ const ArrayListView = ({
             <View style={[styles.rowStyle, { borderTopWidth: 1 }, rowStyle]}>
               <View
                 style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  display: 'flex',
+                  width: "100%",
+                  flexDirection: "row",
+                  display: "flex",
                 }}
               >
                 {(isEdited || item.isEdited) && (
                   <TouchableOpacity
-                    style={{ width: '50%' }}
+                    style={{ width: "50%" }}
                     onPress={() => {
                       setSelectedEditIndex(item, index);
                     }}
@@ -135,9 +136,9 @@ const ArrayListView = ({
                     <View style={[styles.iconButtonStyle, iconButtonStyle]}>
                       <Image
                         source={editImage}
-                        height={'100%'}
-                        width={'100%'}
-                        tintColor={'grey'}
+                        height={"100%"}
+                        width={"100%"}
+                        tintColor={"grey"}
                         style={[styles.iconImageStyle, iconImageStyle]}
                       />
                     </View>
@@ -145,7 +146,7 @@ const ArrayListView = ({
                 )}
                 {(isDeleted || item.isDeleted) && (
                   <TouchableOpacity
-                    style={{ alignSelf: 'center', width: '50%' }}
+                    style={{ alignSelf: "center", width: "50%" }}
                     onPress={() => {
                       setSelectedDeleteIndex(item, index);
                     }}
@@ -153,9 +154,9 @@ const ArrayListView = ({
                     <View style={[styles.iconButtonStyle, iconButtonStyle]}>
                       <Image
                         source={deleteImage}
-                        height={'100%'}
-                        width={'100%'}
-                        tintColor={'grey'}
+                        height={"100%"}
+                        width={"100%"}
+                        tintColor={"grey"}
                         style={[styles.iconImageStyle, iconImageStyle]}
                       />
                     </View>
@@ -184,9 +185,9 @@ const ArrayListView = ({
           return (
             <View
               style={{
-                width: '100%',
-                flexDirection: 'row',
-                display: 'flex',
+                width: "100%",
+                flexDirection: "row",
+                display: "flex",
               }}
             >
               <Text
@@ -218,9 +219,9 @@ const ArrayListView = ({
                     setIsVisible(true);
                   }}
                 >
-                  {data[0][object[i]] != '' ? (
+                  {data[0][object[i]] != "" ? (
                     <View>
-                      <Text style={{ color: '#336199' }}>View</Text>
+                      <Text style={{ color: "#336199" }}>View</Text>
                     </View>
                   ) : null}
                 </TouchableOpacity>
@@ -231,16 +232,17 @@ const ArrayListView = ({
       </>
     );
   };
+
   return (
     <View
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: "#FFFFFF",
         flex: 1,
       }}
     >
       <FlatList
         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
-        data={filteredData}
+        data={arrayData}
         renderItem={renderViewData}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.container}
@@ -254,21 +256,21 @@ const ArrayListView = ({
       <Modal
         transparent={true}
         visible={visible}
-        animationType={'fade'}
-        supportedOrientations={['portrait']}
+        animationType={"fade"}
+        supportedOrientations={["portrait"]}
         hardwareAccelerated
       >
         <View
           style={{
             flex: 1,
-            backgroundColor: '#7d7d7d',
-            height: '100%',
+            backgroundColor: "#7d7d7d",
+            height: "100%",
             zIndex: 1,
           }}
         >
           <Animated.View
             style={{
-              width: '100%',
+              width: "100%",
             }}
           >
             <SafeAreaView style={styles.root}>
@@ -283,12 +285,12 @@ const ArrayListView = ({
                 style={{ height: SCREEN_HEIGHT * 0.8, width: SCREEN_WIDTH }}
               >
                 <Animated.Image
-                  source={{ uri: image + '?' + new Date(), cache: 'reload' }}
+                  source={{ uri: image + "?" + new Date(), cache: "reload" }}
                   style={{
-                    width: '100%',
-                    height: '100%',
+                    width: "100%",
+                    height: "100%",
                   }}
-                  resizeMode={'contain'}
+                  resizeMode={"contain"}
                 />
               </Animated.View>
             </SafeAreaView>
@@ -301,14 +303,14 @@ const ArrayListView = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 3,
     borderRadius: 5,
     margin: 5,
 
     ...Platform.select({
       ios: {
-        shadowColor: '#000000',
+        shadowColor: "#000000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
@@ -321,72 +323,72 @@ const styles = StyleSheet.create({
   containerStyle: {
     marginHorizontal: 5,
     marginVertical: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 2,
   },
   rowStyle: {
-    width: '100%',
+    width: "100%",
   },
 
   rowLabelContainerStyle: {
-    width: '35%',
+    width: "35%",
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderRightWidth: 1,
-    backgroundColor: '#d9d8d7',
+    backgroundColor: "#d9d8d7",
   },
   rowLabelStyle: {
     fontSize: 12,
-    color: '#000000',
-    fontWeight: '600',
-    textTransform: 'capitalize',
+    color: "#000000",
+    fontWeight: "600",
+    textTransform: "capitalize",
   },
 
   rowValueContainerStyle: {
-    width: '65%',
+    width: "65%",
     paddingHorizontal: 5,
     paddingVertical: 3,
   },
   rowValueStyle: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 13,
-    textTransform: 'capitalize',
+    textTransform: "capitalize",
   },
   iconButtonStyle: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 50,
     height: 30,
     width: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: 3,
-    alignSelf: 'center',
+    alignSelf: "center",
     elevation: 1,
   },
   iconImageStyle: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginVertical: 5,
     height: 15,
     width: 15,
   },
   root: {
-    alignItems: 'flex-end',
-    height: '10%',
+    alignItems: "flex-end",
+    height: "10%",
   },
   closeButton: {
     marginRight: 8,
     marginTop: 8,
     width: 30,
     height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 22,
-    backgroundColor: '#000000',
+    backgroundColor: "#000000",
   },
   closeText: {
     fontSize: 16,
-    textAlign: 'center',
-    color: '#FFF',
+    textAlign: "center",
+    color: "#FFF",
     includeFontPadding: false,
   },
 });

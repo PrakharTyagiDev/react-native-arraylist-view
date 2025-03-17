@@ -44,6 +44,8 @@ const data = [
     id: '1',
     name: 'John Doe',
     age: 30,
+    isDeleted: true,
+    isEdited: true,
     images: [
       {
         'before Image':
@@ -57,6 +59,8 @@ const data = [
     id: '2',
     name: 'Jane Smith',
     age: 25,
+    isDeleted: false,
+    isEdited: true,
     images: [
       {
         'before Image':
@@ -70,6 +74,8 @@ const data = [
     id: '3',
     name: 'Alice Johnson',
     age: 35,
+    isDeleted: true,
+    isEdited: false,
     images: [
       {
         'before Image':
@@ -124,6 +130,8 @@ const data = [
     id: '1',
     name: 'John Doe',
     age: 30,
+    isDeleted: false,
+    isEdited: false,
     image: [
       {
         'before Image':
@@ -137,6 +145,8 @@ const data = [
     id: '2',
     name: 'Jane Smith',
     age: 25,
+    isDeleted: true,
+    isEdited: false,
     image: [
       {
         'before Image':
@@ -150,6 +160,8 @@ const data = [
     id: '3',
     name: 'Alice Johnson',
     age: 35,
+    isDeleted: true,
+    isEdited: true,
     image: [
       {
         'before Image':
