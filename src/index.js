@@ -1,26 +1,19 @@
+import React, { useCallback, memo } from "react";
 import {
-  Animated,
-  Dimensions,
+  FlatList,
   Image,
-  Modal,
+  Linking,
   Platform,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
-import React, { useState } from "react";
-import { FlatList } from "react-native";
-const SCREEN = Dimensions.get("window");
-
-const SCREEN_WIDTH = SCREEN.width;
-const SCREEN_HEIGHT = SCREEN.height;
 
 const ArrayListView = ({
   arrayData = [],
   hidden = ["id"],
-  borderColor = "#000000",
+  borderColor = "#000",
   itemCardStyle,
   containerStyle,
   rowStyle,
@@ -30,86 +23,72 @@ const ArrayListView = ({
   rowValueStyle,
   isEdited = false,
   isDeleted = false,
+  isView = false,
   onSelectDelete,
   onSelectEdit,
+  onSelectView,
   editImage = require("./assets/edit.png"),
   deleteImage = require("./assets/delete.png"),
+  viewImage = require("./assets/view.png"),
   showsVerticalScrollIndicator = false,
   listHeader,
   itemSeperator,
   listFooter,
   onEndReached,
-  endThreshold,
+  endThreshold = 0.5,
   refreshControl,
   iconButtonStyle,
   iconImageStyle,
 }) => {
-  const [visible, setIsVisible] = useState(false);
-  const [image, setImage] = useState("");
+  const hiddenUpper = hidden.map(h => h.toUpperCase());
 
-  const renderViewData = ({ item, index }) => {
-    var object = Object.keys(item);
-    var len = Object.keys(item).length;
+  const getBorderStyle = useCallback((index, length) => ({
+    borderBottomWidth: index === length - 1 ? 0 : 1,
+    borderColor,
+  }), [borderColor]);
+
+  const handleLinkPress = useCallback(url => {
+    if (url) Linking.openURL(url);
+  }, []);
+
+  const RenderImage = memo(({ data }) => {
+    const keys = Object.keys(data[0] || {});
+    return keys.map((key, i) => (
+      <View style={styles.rowStyle} key={key}>
+        <View style={[styles.rowLabelContainerStyle, rowLabelContainerStyle, getBorderStyle(i, keys.length)]}>
+          <Text style={[styles.rowLabelStyle, rowLabelStyle]}>{key}</Text>
+        </View>
+        <View style={[styles.rowValueContainerStyle, rowValueContainerStyle, getBorderStyle(i, keys.length)]}>
+          <TouchableOpacity onPress={() => handleLinkPress(data[0][key])}>
+            {data[0][key] ? <Text style={{ color: "#336199" }}>View</Text> : null}
+          </TouchableOpacity>
+        </View>
+      </View>
+    ));
+  });
+
+  const renderItem = useCallback(({ item, index }) => {
+    const keys = Object.keys(item);
+
     return (
       <View style={[styles.card, itemCardStyle]}>
-        <View
-          style={[
-            styles.containerStyle,
-            containerStyle,
-            { borderColor: borderColor },
-          ]}
-        >
-          {object.map((a, i) => {
-            const currentKey = object[i].toUpperCase();
-            // Skip keys that are in the hidden array
-            if (hidden.map((key) => key.toUpperCase()).includes(currentKey))
-              return null;
-            // Skip 'ISDELETED' and 'ISEDITED' keys
-            if (currentKey === "ISDELETED" || currentKey === "ISEDITED")
-              return null;
+        <View style={[styles.containerStyle, containerStyle, { borderColor }]}>
+          {keys.map((key, i) => {
+            const upperKey = key.toUpperCase();
+            if (hiddenUpper.includes(upperKey) || ["ISDELETED", "ISEDITED"].includes(upperKey)) return null;
 
             return (
-              <View style={styles.rowStyle}>
-                {object[i].toUpperCase() === "IMAGES" ? (
-                  <>
-                    {item[object[i]].length > 0 && (
-                      <RenderImage data={item[object[i]]} />
-                    )}
-                  </>
+              <View key={key} style={styles.rowStyle}>
+                {upperKey === "IMAGES" ? (
+                  item[key]?.length > 0 && <RenderImage data={item[key]} />
                 ) : (
-                  <View
-                    style={{
-                      width: "100%",
-                      flexDirection: "row",
-                      display: "flex",
-                    }}
-                  >
-                    <View
-                      style={[
-                        styles.rowLabelContainerStyle,
-                        rowLabelContainerStyle,
-                        {
-                          borderBottomWidth: i === len - 1 ? 0 : 1,
-                          borderColor: borderColor,
-                        },
-                      ]}
-                    >
-                      <Text style={[styles.rowLabelStyle, rowLabelStyle]}>
-                        {object[i]}
-                      </Text>
+                  <View style={styles.rowContent}>
+                    <View style={[styles.rowLabelContainerStyle, rowLabelContainerStyle, getBorderStyle(i, keys.length)]}>
+                      <Text style={[styles.rowLabelStyle, rowLabelStyle]}>{key}</Text>
                     </View>
-                    <View
-                      style={[
-                        styles.rowValueContainerStyle,
-                        rowValueContainerStyle,
-                        {
-                          borderBottomWidth: i === len - 1 ? 0 : 1,
-                          borderColor: borderColor,
-                        },
-                      ]}
-                    >
+                    <View style={[styles.rowValueContainerStyle, rowValueContainerStyle, getBorderStyle(i, keys.length)]}>
                       <Text style={[styles.rowValueStyle, rowValueStyle]}>
-                        {item[object[i]]}
+                        {item[key]?.toString()}
                       </Text>
                     </View>
                   </View>
@@ -117,200 +96,67 @@ const ArrayListView = ({
               </View>
             );
           })}
-          {isEdited || isDeleted || item.isDeleted || item.isEdited ? (
+
+          {(isView || isEdited || isDeleted || item.isView || item.isEdited || item.isDeleted) && (
             <View style={[styles.rowStyle, { borderTopWidth: 1 }, rowStyle]}>
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  display: "flex",
-                }}
-              >
-                {(isEdited || item.isEdited) && (
-                  <TouchableOpacity
-                    style={{ width: "50%" }}
-                    onPress={() => {
-                      setSelectedEditIndex(item, index);
-                    }}
-                  >
-                    <View style={[styles.iconButtonStyle, iconButtonStyle]}>
-                      <Image
-                        source={editImage}
-                        height={"100%"}
-                        width={"100%"}
-                        tintColor={"grey"}
-                        style={[styles.iconImageStyle, iconImageStyle]}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                )}
-                {(isDeleted || item.isDeleted) && (
-                  <TouchableOpacity
-                    style={{ alignSelf: "center", width: "50%" }}
-                    onPress={() => {
-                      setSelectedDeleteIndex(item, index);
-                    }}
-                  >
-                    <View style={[styles.iconButtonStyle, iconButtonStyle]}>
-                      <Image
-                        source={deleteImage}
-                        height={"100%"}
-                        width={"100%"}
-                        tintColor={"grey"}
-                        style={[styles.iconImageStyle, iconImageStyle]}
-                      />
-                    </View>
-                  </TouchableOpacity>
+              <View style={styles.actionRow}>
+                {[
+                  { show: isView || item.isView, icon: viewImage, action: () => onSelectView?.(item, index) },
+                  { show: isEdited || item.isEdited, icon: editImage, action: () => onSelectEdit?.(item, index) },
+                  { show: isDeleted || item.isDeleted, icon: deleteImage, action: () => onSelectDelete?.(item, index) },
+                ].map((btn, idx) =>
+                  btn.show ? (
+                    <TouchableOpacity key={idx} style={styles.flexOne} onPress={btn.action}>
+                      <View style={[styles.iconButtonStyle, iconButtonStyle]}>
+                        <Image source={btn.icon} style={[styles.iconImageStyle, iconImageStyle]} tintColor="grey" />
+                      </View>
+                    </TouchableOpacity>
+                  ) : null
                 )}
               </View>
             </View>
-          ) : null}
+          )}
         </View>
       </View>
     );
-  };
-
-  const setSelectedDeleteIndex = (index, item) => {
-    onSelectDelete(index, item);
-  };
-  const setSelectedEditIndex = (index, item) => {
-    onSelectEdit(index, item);
-  };
-  const RenderImage = ({ data }) => {
-    var object = Object.keys(data[0]);
-    var len = Object.keys(data[0]).length;
-    return (
-      <>
-        {object.map((a, i) => {
-          return (
-            <View
-              style={{
-                width: "100%",
-                flexDirection: "row",
-                display: "flex",
-              }}
-            >
-              <Text
-                style={[
-                  styles.rowLabelStyle,
-                  rowLabelStyle,
-                  {
-                    borderBottomWidth: i === len - 1 ? 0 : 1,
-                    borderColor: borderColor,
-                  },
-                ]}
-              >
-                {object[i]}
-              </Text>
-
-              <Text
-                style={[
-                  styles.rowValueStyle,
-                  rowValueStyle,
-                  {
-                    borderBottomWidth: i === len - 1 ? 0 : 1,
-                    borderColor: borderColor,
-                  },
-                ]}
-              >
-                <TouchableOpacity
-                  onPress={() => {
-                    setImage(data[0][object[i]]);
-                    setIsVisible(true);
-                  }}
-                >
-                  {data[0][object[i]] != "" ? (
-                    <View>
-                      <Text style={{ color: "#336199" }}>View</Text>
-                    </View>
-                  ) : null}
-                </TouchableOpacity>
-              </Text>
-            </View>
-          );
-        })}
-      </>
-    );
-  };
+  }, [arrayData, isView, isEdited, isDeleted, borderColor]);
 
   return (
-    <View
-      style={{
-        backgroundColor: "#FFFFFF",
-        flex: 1,
-      }}
-    >
+    <View style={styles.wrapper}>
       <FlatList
-        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
         data={arrayData}
-        renderItem={renderViewData}
-        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => item?.id?.toString() ?? index.toString()}
         contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={showsVerticalScrollIndicator}
         ListHeaderComponent={listHeader}
         ItemSeparatorComponent={itemSeperator}
         ListFooterComponent={listFooter}
         onEndReached={onEndReached}
         onEndReachedThreshold={endThreshold}
         refreshControl={refreshControl}
+        initialNumToRender={5}
+        maxToRenderPerBatch={10}
+        removeClippedSubviews
+        windowSize={5}
       />
-      <Modal
-        transparent={true}
-        visible={visible}
-        animationType={"fade"}
-        supportedOrientations={["portrait"]}
-        hardwareAccelerated
-      >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "#7d7d7d",
-            height: "100%",
-            zIndex: 1,
-          }}
-        >
-          <Animated.View
-            style={{
-              width: "100%",
-            }}
-          >
-            <SafeAreaView style={styles.root}>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => setIsVisible(false)}
-                hitSlop={{ top: 16, left: 16, bottom: 16, right: 16 }}
-              >
-                <Text style={styles.closeText}>✕</Text>
-              </TouchableOpacity>
-              <Animated.View
-                style={{ height: SCREEN_HEIGHT * 0.8, width: SCREEN_WIDTH }}
-              >
-                <Animated.Image
-                  source={{ uri: image + "?" + new Date(), cache: "reload" }}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  resizeMode={"contain"}
-                />
-              </Animated.View>
-            </SafeAreaView>
-          </Animated.View>
-        </View>
-      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: "#FFF",
+    flex: 1,
+  },
   card: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFF",
     padding: 3,
     borderRadius: 5,
     margin: 5,
-
     ...Platform.select({
       ios: {
-        shadowColor: "#000000",
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
@@ -323,74 +169,64 @@ const styles = StyleSheet.create({
   containerStyle: {
     marginHorizontal: 5,
     marginVertical: 5,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFF",
     borderWidth: 2,
   },
   rowStyle: {
     width: "100%",
   },
-
+  rowContent: {
+    flexDirection: "row",
+    width: "100%",
+  },
   rowLabelContainerStyle: {
     width: "35%",
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderRightWidth: 1,
-    backgroundColor: "#d9d8d7",
+    backgroundColor: "#EEE",
   },
   rowLabelStyle: {
     fontSize: 12,
-    color: "#000000",
     fontWeight: "600",
+    color: "#000",
     textTransform: "capitalize",
   },
-
   rowValueContainerStyle: {
     width: "65%",
     paddingHorizontal: 5,
     paddingVertical: 3,
   },
   rowValueStyle: {
-    color: "#000000",
     fontSize: 13,
+    color: "#000",
     textTransform: "capitalize",
   },
   iconButtonStyle: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFF",
     borderRadius: 50,
     height: 30,
     width: 30,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     marginVertical: 3,
     alignSelf: "center",
     elevation: 1,
   },
   iconImageStyle: {
-    alignSelf: "center",
-    marginVertical: 5,
     height: 15,
     width: 15,
   },
-  root: {
-    alignItems: "flex-end",
-    height: "10%",
+  actionRow: {
+    flexDirection: "row",
+    width: "100%",
   },
-  closeButton: {
-    marginRight: 8,
-    marginTop: 8,
-    width: 30,
-    height: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 22,
-    backgroundColor: "#000000",
+  flexOne: {
+    flex: 1,
   },
-  closeText: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#FFF",
-    includeFontPadding: false,
+  container: {
+    paddingBottom: 10,
   },
 });
 
-export default ArrayListView;
+export default memo(ArrayListView);
