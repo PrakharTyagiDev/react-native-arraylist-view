@@ -54,7 +54,7 @@ const ArrayListView = ({
   const RenderImage = memo(({ data }) => {
     const keys = Object.keys(data[0] || {});
     return keys.map((key, i) => (
-      <View style={styles.rowStyle} key={key}>
+      <View style={styles.rowContent} key={key}>
         <View style={[styles.rowLabelContainerStyle, rowLabelContainerStyle, getBorderStyle(i, keys.length)]}>
           <Text style={[styles.rowLabelStyle, rowLabelStyle]}>{key}</Text>
         </View>
