@@ -213,13 +213,3 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 
 ## License
 MIT
-##### Breakdown of Sections:
-1. **Description**: Explains the purpose and functionality of the library.
-2. **Installation**: Guides the user on how to install the library using npm or yarn.
-3. **Usage**: Provides an example of how to use the library with sample data and a basic app structure.
-4. **Sample Data**: Shows an example of how the data should be structured for the list view.
-5. **Properties**: Details the available properties and customization options for the component.
-6. **Contributing**: Links to a contributing guide (which you can create if you'd like others to contribute).
-7. **License**: Indicates that the project is licensed under the MIT License.
-
-This structure should be easy to follow for users and contributors. Let me know if you need any further adjustments!
